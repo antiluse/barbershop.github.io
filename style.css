@@ -1,65 +1,134 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background: #0f0f0f;
     color: #e0e0e0;
 }
 
+/* HERO */
 .hero {
-    height: 100vh;
-    background: linear-gradient(#000000cc, #000000cc),
-    url('https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb');
+    min-height: 100vh;
+    background:
+        linear-gradient(#000000cc, #000000cc),
+        url('https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb');
     background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding-top: 200px;
+    padding: 40px 20px;
 }
 
 .hero h1 {
-    font-size: 60px;
-    letter-spacing: 4px;
+    font-size: 36px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
 }
 
+.hero p {
+    font-size: 16px;
+    margin-bottom: 25px;
+    color: #b0b0b0;
+}
+
+/* BUTTON */
 .btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 15px 40px;
+    padding: 14px 34px;
     background: #1f1f1f;
+    border: 1px solid #444;
     color: #fff;
     text-decoration: none;
-    border: 1px solid #555;
+    font-size: 16px;
 }
 
+/* SECTIONS */
 section {
-    padding: 60px 20px;
+    padding: 50px 20px;
     text-align: center;
 }
 
+h2 {
+    margin-bottom: 30px;
+    font-size: 26px;
+}
+
+/* ADVANTAGES */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 15px;
 }
 
-.services ul {
-    list-style: none;
-    padding: 0;
+.card {
+    background: #1b1b1b;
+    padding: 20px;
+    border: 1px solid #333;
 }
 
+/* SERVICES */
+.service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* BOOKING */
 .booking form {
-    max-width: 400px;
+    max-width: 360px;
     margin: auto;
 }
 
-.booking input, .booking select, .booking button {
+.booking input,
+.booking select,
+.booking button {
     width: 100%;
-    padding: 15px;
+    padding: 14px;
     margin: 10px 0;
     background: #1f1f1f;
-    color: #fff;
     border: 1px solid #444;
+    color: #fff;
+    font-size: 16px;
 }
 
+.booking button {
+    cursor: pointer;
+}
+
+/* FOOTER */
 footer {
-    padding: 20px;
     background: #000;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+}
+
+/* ===================== */
+/* DESKTOP VERSION */
+/* ===================== */
+@media (min-width: 768px) {
+
+    .hero h1 {
+        font-size: 56px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .service-list {
+        max-width: 600px;
+        margin: auto;
+    }
 }
