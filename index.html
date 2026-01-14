@@ -2,57 +2,91 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Барбершоп | Тула</title>
+    <title>Barber Shop | Тула</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="hero">
-    <div class="hero-content">
-        <h1>BARBER SHOP</h1>
-        <p>Мужской стиль. Качество. Атмосфера.</p>
-        <a href="#booking" class="btn">Записаться</a>
-    </div>
+<!-- HEADER -->
+<header class="header glass">
+    <div class="logo">BARBER</div>
+    <div class="burger" onclick="openMenu()">☰</div>
 </header>
 
-<section class="advantages">
-    <h2>Почему выбирают нас</h2>
-    <div class="grid">
-        <div class="card">✂ Опытные барберы</div>
-        <div class="card">🪒 Премиум-инструменты</div>
-        <div class="card">🔥 Мужская атмосфера</div>
-        <div class="card">📱 Онлайн-запись</div>
+<!-- SIDE MENU -->
+<div class="side-menu glass" id="sideMenu">
+    <div class="close" onclick="closeMenu()">✕</div>
+    <a href="#about" onclick="closeMenu()">О нас</a>
+    <a href="#services" onclick="closeMenu()">Услуги</a>
+    <a href="#gallery" onclick="closeMenu()">Галерея</a>
+    <a href="#booking" onclick="closeMenu()">Запись</a>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content glass reveal">
+        <h1>МУЖСКОЙ СТИЛЬ</h1>
+        <p>Барбершоп в Туле. Качество. Атмосфера.</p>
+        <a href="#booking" class="btn">Записаться</a>
     </div>
 </section>
 
-<section class="services">
+<!-- ABOUT -->
+<section id="about" class="section reveal">
+    <div class="glass block">
+        <h2>О барбершопе</h2>
+        <p>
+            Мы создаём мужской стиль, используя профессиональные техники стрижки
+            и ухода. Индивидуальный подход, премиальные инструменты и атмосфера.
+        </p>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section reveal">
     <h2>Услуги</h2>
-    <div class="service-list">
-        <div>Мужская стрижка — от 1200 ₽</div>
-        <div>Стрижка + борода — от 1800 ₽</div>
-        <div>Оформление бороды — от 800 ₽</div>
+    <div class="cards">
+        <div class="card glass">✂ Мужская стрижка</div>
+        <div class="card glass">🪒 Оформление бороды</div>
+        <div class="card glass">🔥 Стрижка + борода</div>
     </div>
 </section>
 
-<section id="booking" class="booking">
-    <h2>Онлайн-запись</h2>
-    <form>
-        <input type="text" placeholder="Ваше имя" required>
-        <input type="tel" placeholder="Телефон" required>
-        <select>
-            <option>Мужская стрижка</option>
-            <option>Стрижка + борода</option>
-            <option>Оформление бороды</option>
-        </select>
-        <button type="submit">Записаться</button>
-    </form>
+<!-- GALLERY -->
+<section id="gallery" class="section reveal">
+    <h2>Галерея</h2>
+    <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486">
+        <img src="https://images.unsplash.com/photo-1599351431614-18ef1fdd27e3">
+        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
+        <img src="https://images.unsplash.com/photo-1521498542256-5aeb47ba2c98">
+    </div>
 </section>
 
-<footer>
-    <p>Тула • +7 (000) 000-00-00</p>
+<!-- BOOKING -->
+<section id="booking" class="section reveal">
+    <div class="glass block">
+        <h2>Онлайн-запись</h2>
+        <form>
+            <input type="text" placeholder="Имя" required>
+            <input type="tel" placeholder="Телефон" required>
+            <select>
+                <option>Мужская стрижка</option>
+                <option>Стрижка + борода</option>
+                <option>Оформление бороды</option>
+            </select>
+            <button type="submit">Записаться</button>
+        </form>
+    </div>
+</section>
+
+<footer class="footer">
+    Тула • Барбершоп • 2026
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
