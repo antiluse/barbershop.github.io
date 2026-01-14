@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: #e0e0e0;
+}
+
+.hero {
+    height: 100vh;
+    background: linear-gradient(#000000cc, #000000cc),
+    url('https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb');
+    background-size: cover;
+    text-align: center;
+    padding-top: 200px;
+}
+
+.hero h1 {
+    font-size: 60px;
+    letter-spacing: 4px;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 40px;
+    background: #1f1f1f;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #555;
+}
+
+section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.services ul {
+    list-style: none;
+    padding: 0;
+}
+
+.booking form {
+    max-width: 400px;
+    margin: auto;
+}
+
+.booking input, .booking select, .booking button {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: #1f1f1f;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+footer {
+    padding: 20px;
+    background: #000;
+}
