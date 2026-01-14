@@ -1,26 +1,23 @@
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-/* ОСНОВА */
 body {
     margin: 0;
-    font-family: 'Inter', 'Arial', sans-serif;
+    font-family: Inter, Arial, sans-serif;
     background: #0b0b0b;
     color: #f0f0f0;
     font-weight: 500;
 }
 
-/* ===== GLASS (матовый, мягкий) ===== */
+/* GLASS */
 .glass {
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: saturate(180%) blur(22px);
+    -webkit-backdrop-filter: saturate(180%) blur(22px);
     border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 28px; /* сильнее скругление */
+    border-radius: 32px;
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 .header {
     position: fixed;
     top: 0;
@@ -29,99 +26,113 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 10;
-    border-radius: 0 0 28px 28px;
+    z-index: 20;
+    border-radius: 0 0 32px 32px;
 }
 
 .logo {
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 3px;
-    font-size: 18px;
 }
 
-.nav a {
-    font-weight: 600;
-}
-
-/* ===== BURGER ===== */
 .burger {
     font-size: 28px;
     cursor: pointer;
-    user-select: none;
 }
 
-/* ===== HERO ===== */
+/* SIDE MENU */
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    height: 100vh;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    transition: 0.45s cubic-bezier(.4,0,.2,1);
+    z-index: 30;
+}
+
+.side-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.side-menu.open { right: 0; }
+
+.close {
+    align-self: flex-end;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 25;
+}
+
+.overlay.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* HERO */
 .hero {
     height: 100vh;
     background:
-        linear-gradient(#000000aa, #000000aa),
+        linear-gradient(#000000aa,#000000aa),
         url('https://images.unsplash.com/photo-1517832606299-7ae9b720a186');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 .hero-content {
     padding: 48px;
     text-align: center;
-    border-radius: 36px;
-    animation: fadeUp 1.2s ease;
 }
 
-.hero h1 {
-    font-size: 40px;
-    font-weight: 800;
-    letter-spacing: 4px;
-    margin-bottom: 12px;
-}
-
-.hero p {
-    font-size: 16px;
-    font-weight: 500;
-    opacity: 0.85;
-}
-
-/* ===== BUTTON ===== */
+/* BUTTON */
 .btn {
     display: inline-block;
     margin-top: 22px;
-    padding: 15px 38px;
-    background: rgba(255,255,255,0.14);
+    padding: 16px 40px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.15);
     border: 1px solid rgba(255,255,255,0.3);
     color: #fff;
     text-decoration: none;
-    border-radius: 999px; /* полностью мягкая */
     font-weight: 600;
-    transition: 0.35s ease;
 }
 
-.btn:hover {
-    background: rgba(255,255,255,0.22);
-    transform: translateY(-2px);
-}
-
-/* ===== SECTIONS ===== */
+/* SECTIONS */
 .section {
-    padding: 80px 22px;
+    padding: 90px 22px;
     text-align: center;
 }
 
-.section h2 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 36px;
-}
+h1 { font-size: 40px; font-weight: 800; }
+h2 { font-size: 28px; font-weight: 700; }
 
-/* ===== BLOCK ===== */
 .block {
-    padding: 36px;
     max-width: 600px;
     margin: auto;
+    padding: 36px;
 }
 
-/* ===== CARDS ===== */
+/* CARDS */
 .cards {
     display: grid;
     gap: 20px;
@@ -129,18 +140,11 @@ body {
 
 .card {
     padding: 26px;
-    font-size: 16px;
+    border-radius: 28px;
     font-weight: 600;
-    border-radius: 26px;
-    transition: 0.35s ease;
 }
 
-.card:hover {
-    transform: translateY(-6px);
-    background: rgba(255,255,255,0.12);
-}
-
-/* ===== GALLERY ===== */
+/* GALLERY */
 .gallery {
     display: grid;
     gap: 16px;
@@ -148,71 +152,43 @@ body {
 
 .gallery img {
     width: 100%;
-    border-radius: 26px;
+    border-radius: 28px;
     object-fit: cover;
-    transition: 0.4s ease;
 }
 
-.gallery img:hover {
-    transform: scale(1.03);
-}
-
-/* ===== FORM ===== */
-form input,
-form select,
-form button {
+/* FORM */
+form input, form select, form button {
     width: 100%;
     padding: 16px;
     margin: 10px 0;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.25);
     border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.1);
     color: #fff;
-    font-size: 15px;
-    font-weight: 500;
 }
 
-form button {
-    cursor: pointer;
-    font-weight: 700;
-}
-
-/* ===== FOOTER ===== */
+/* FOOTER */
 .footer {
     padding: 28px;
     text-align: center;
-    font-size: 14px;
     opacity: 0.6;
 }
 
-/* ===== DESKTOP ===== */
-@media (min-width: 768px) {
-
-    .cards {
-        grid-template-columns: repeat(3, 1fr);
-        max-width: 1000px;
-        margin: auto;
-    }
-
-    .gallery {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 1100px;
-        margin: auto;
-    }
-
-    .hero h1 {
-        font-size: 56px;
-    }
+/* REVEAL */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.9s cubic-bezier(.2,.8,.2,1);
 }
 
-/* ===== ANIMATION ===== */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+    .cards { grid-template-columns: repeat(3,1fr); max-width: 1000px; margin: auto; }
+    .gallery { grid-template-columns: repeat(4,1fr); max-width: 1100px; margin: auto; }
+    h1 { font-size: 56px; }
 }
