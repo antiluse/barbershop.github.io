@@ -26,32 +26,32 @@
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
 <!-- HERO -->
-<section class="hero">
-    <div class="hero-content glass reveal">
-        <h1>МУЖСКОЙ СТИЛЬ</h1>
-        <p>Барбершоп в Туле. Качество. Атмосфера.</p>
-        <a href="#booking" class="btn">Записаться</a>
+<section class="hero reveal">
+    <div class="hero-content glass">
+        <h1>Barber Shop Тула</h1>
+        <p>Премиум-барбершоп для мужчин — стиль, качество и уверенность.</p>
+        <a href="#booking" class="btn">Записаться сейчас</a>
     </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about" class="section reveal">
     <div class="glass block">
-        <h2>О барбершопе</h2>
-        <p>
-            Мы создаём мужской стиль, используя профессиональные техники стрижки
-            и ухода. Индивидуальный подход, премиальные инструменты и атмосфера.
-        </p>
+        <h2>О нашем барбершопе</h2>
+        <p>Наш Barber Shop — это стильное пространство в центре Тулы, где каждый мужчина может получить профессиональную стрижку, уход за бородой и полный спектр уходовых услуг. Мы ценим ваш стиль и время — используем только проверенные техники и профессиональные средства премиум-класса.</p>
     </div>
 </section>
 
 <!-- SERVICES -->
 <section id="services" class="section reveal">
-    <h2>Услуги</h2>
+    <h2>Наши услуги</h2>
     <div class="cards">
-        <div class="card glass">✂ Мужская стрижка</div>
-        <div class="card glass">🪒 Оформление бороды</div>
+        <div class="card glass">✂ Мужская классическая стрижка</div>
+        <div class="card glass">🧔 Борода и уход за ней</div>
         <div class="card glass">🔥 Стрижка + борода</div>
+        <div class="card glass">💈 Бритьё опасной бритвой</div>
+        <div class="card glass">✒️ Оформление усов</div>
+        <div class="card glass">🧴 Уходовые процедуры (маски, масла)</div>
     </div>
 </section>
 
@@ -59,8 +59,14 @@
 <section id="gallery" class="section reveal">
     <h2>Галерея</h2>
     <div class="gallery">
-        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486">
-        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
+        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486" alt="Стрижка 1">
+        <img src="https://images.unsplash.com/photo-1599351431614-18ef1fdd27e3" alt="Стрижка 2">
+        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" alt="Барбер 1">
+        <img src="https://images.unsplash.com/photo-1521498542256-5aeb47ba2c98" alt="Барбер 2">
+        <img src="https://images.pexels.com/photos/3993212/pexels-photo-3993212.jpeg" alt="Процедура 1">
+        <img src="https://images.pexels.com/photos/3993219/pexels-photo-3993219.jpeg" alt="Процедура 2">
+        <img src="https://images.pexels.com/photos/3993211/pexels-photo-3993211.jpeg" alt="Атмосфера 1">
+        <img src="https://images.pexels.com/photos/3993216/pexels-photo-3993216.jpeg" alt="Атмосфера 2">
     </div>
 </section>
 
@@ -68,26 +74,39 @@
 <section id="booking" class="section reveal">
     <div class="glass block">
         <h2>Онлайн-запись</h2>
-        <form>
-            <input type="text" placeholder="Имя" required>
-            <input type="tel" placeholder="Телефон" required>
-            <select>
-                <option>Мужская стрижка</option>
+        <form id="bookingForm">
+            <input type="text" id="name" placeholder="Ваше имя" required>
+            <input type="tel" id="phone" placeholder="Телефон" required>
+            <select id="service">
+                <option>Мужская классическая стрижка</option>
+                <option>Борода и уход за ней</option>
                 <option>Стрижка + борода</option>
-                <option>Оформление бороды</option>
+                <option>Бритьё опасной бритвой</option>
+                <option>Оформление усов</option>
+                <option>Уходовые процедуры</option>
             </select>
             <button type="submit">Записаться</button>
         </form>
     </div>
 </section>
 
+<!-- SUCCESS POPUP -->
+<div class="popup" id="successPopup">
+    <div class="popup-content glass">
+        <p>Запись успешно отправлена!</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
 <footer class="footer">
-    Тула • Барбершоп • 2026
+    © 2026 Barber Shop • Тула
 </footer>
 
 <script src="script.js"></script>
 </body>
 </html>
+
+
 
 
 
