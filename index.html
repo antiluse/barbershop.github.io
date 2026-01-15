@@ -1,126 +1,764 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Просто барбер шоп</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRUTAL CUTS | Барбершоп</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Общие настройки стиля в духе v2raytun и moscowbarber */
+        :root {
+            --bg-color: #0a0a0a;
+            --accent-color: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-secondary: #a0a0a0;
+            --btn-bg: #fff;
+            --btn-text: #0a0a0a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Плавный скролл */
+        }
+
+        /* Анимированный фон (градиенты как на сайте-примере) */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% -20%, #1a1a1a, transparent);
+            z-index: -1;
+            animation: glow-move 10s infinite alternate; /* Добавим легкую анимацию фону */
+        }
+
+        @keyframes glow-move {
+            from {
+                background-position: 0% 0%;
+            }
+            to {
+                background-position: 100% 100%;
+            }
+        }
+
+        /* Навигация (Матовое стекло) */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(15px); /* Эффект размытия */
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.9); /* Более темный фон при скролле */
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            transition: 0.3s ease;
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Главный экран */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 4.5rem; /* Немного крупнее */
+            margin-bottom: 20px;
+            background: linear-gradient(to bottom, #fff, #888); /* Мягче градиент */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 1.3rem; /* Крупнее */
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+
+        /* Кнопка */
+        .btn {
+            padding: 14px 40px; /* Немного крупнее */
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05); /* Легкий подъем и увеличение */
+            background: #eee;
+        }
+
+        /* Общий контейнер для секций */
+        .container {
+            padding: 100px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            background: linear-gradient(to bottom, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Сетка услуг (Карточки с эффектом матового стекла) */
+        .services-grid, .masters-grid, .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 24px;
+            transition: 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before { /* Эффект легкого свечения при наведении */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Карточки мастеров */
+        .master-card {
+            text-align: center;
+        }
+
+        .master-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        .master-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .master-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .master-card p {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Галерея работ */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: grayscale(100%); /* Черно-белый */
+            transition: transform 0.4s ease, filter 0.4s ease;
+            display: block;
+        }
+
+        .gallery-item::after { /* Эффект наложения на фото */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            transition: background 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%); /* Цветное при наведении */
+        }
+
+        .gallery-item:hover::after {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Отзывы */
+        .reviews-slider {
+            display: flex;
+            overflow-x: auto; /* Позволяем прокручивать */
+            scroll-snap-type: x mandatory; /* Привязка к карточкам */
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px; /* Для скроллбара */
+            gap: 25px; /* Расстояние между отзывами */
+        }
+
+        .review-card {
+            flex: 0 0 320px; /* Фиксированная ширина карточки */
+            scroll-snap-align: start;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .review-card .author {
+            font-weight: 700;
+            margin-top: 15px;
+            color: var(--accent-color);
+        }
+
+        .review-card .rating {
+            color: gold;
+            margin-bottom: 10px;
+        }
+
+        /* Контакты и форма записи */
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: center;
+        }
+
+        .contact-info, .booking-form {
+            flex: 1;
+            min-width: 300px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info h3, .booking-form h3 {
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .contact-info a:hover {
+            color: #ccc;
+        }
+
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            color: white;
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-decoration: none; /* Убрать подчеркивание */
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .booking-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .booking-form label {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .booking-form input,
+        .booking-form select,
+        .booking-form textarea {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .booking-form input:focus,
+        .booking-form select:focus,
+        .booking-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .booking-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .booking-form .btn {
+            align-self: flex-start;
+            margin-top: 10px;
+        }
+
+        /* Плавное появление при скролле */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); /* Более естественная анимация */
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 50px 10%;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            p.subtitle {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            nav {
+                padding: 15px 5%;
+            }
+            .nav-links a {
+                margin-left: 15px;
+            }
+            .container {
+                padding: 80px 5%;
+            }
+            .contact-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .nav-links {
+                display: none; /* Мобильное меню можно добавить позже */
+            }
+            .logo {
+                width: 100%;
+                text-align: center;
+            }
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 40px;
+            }
+            .card {
+                padding: 30px;
+            }
+            .card h3 {
+                font-size: 1.3rem;
+            }
+            .reviews-slider {
+                flex-wrap: nowrap; /* Отключаем перенос для скролла */
+            }
+            .review-card {
+                flex: 0 0 90%; /* Ширина для мобильных */
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header glass">
-  <div class="logo">ПРОСТО<br><span>БАРБЕР ШОП</span></div>
-  <div class="burger" onclick="openMenu()">☰</div>
-</header>
+    <div class="bg-glow"></div>
 
-<!-- SIDE MENU -->
-<div class="side-menu glass" id="sideMenu">
-  <div class="close" onclick="closeMenu()">✕</div>
-  <a href="#about" onclick="closeMenu()">О нас</a>
-  <a href="#services" onclick="closeMenu()">Услуги</a>
-  <a href="#gallery" onclick="closeMenu()">Галерея</a>
-  <a href="#reviews" onclick="closeMenu()">Отзывы</a>
-  <a href="#booking" onclick="closeMenu()">Запись</a>
-  <a href="https://t.me/antiluse" target="_blank" class="tg-btn">Telegram</a>
-</div>
-<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+    <nav>
+        <div class="logo">BRUTAL.</div>
+        <div class="nav-links">
+            <a href="#services">Услуги</a>
+            <a href="#masters">Мастера</a>
+            <a href="#gallery">Портфолио</a>
+            <a href="#reviews">Отзывы</a>
+            <a href="#contact" class="btn">Записаться</a>
+        </div>
+    </nav>
 
-<!-- HERO -->
-<section class="hero reveal">
-  <div class="hero-content glass">
-    <h1>МУЖСКОЙ СТИЛЬ</h1>
-    <p>Стрижки. Борода. Атмосфера.</p>
-    <a href="#booking" class="btn">Записаться</a>
-  </div>
-</section>
+    <header>
+        <h1 class="reveal">Искусство стрижки</h1>
+        <p class="subtitle reveal">Премиальный барбершоп для тех, кто ценит стиль, качество и безупречный сервис в минималистичной атмосфере.</p>
+        <a href="#contact" class="btn reveal">Записаться онлайн</a>
+    </header>
 
-<!-- ABOUT -->
-<section id="about" class="section reveal">
-  <div class="glass block">
-    <h2>О барбершопе</h2>
-    <p>
-      «Просто барбер шоп» — это современное мужское пространство,
-      где ценят аккуратность, стиль и индивидуальный подход.
-      Мы работаем только с профессиональными инструментами
-      и создаём образы, которые подчёркивают характер.
-    </p>
-  </div>
-</section>
+    <section class="container" id="services">
+        <h2 class="section-title reveal">Наши услуги</h2>
+        <div class="services-grid">
+            <div class="card reveal">
+                <h3>Мужская стрижка</h3>
+                <p>Классика или тренд — наши мастера создадут образ, который подчеркнет вашу индивидуальность.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Стрижка бороды</h3>
+                <p>Идеальные контуры и уход. Используем только премиальные масла и бальзамы.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Королевское бритье</h3>
+                <p>Традиционный ритуал с использованием горячего полотенца и опасной бритвы.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Детская стрижка</h3>
+                <p>Современные и стильные стрижки для юных джентльменов.</p>
+            </div>
+        </div>
+    </section>
 
-<!-- SERVICES -->
-<section id="services" class="section reveal">
-<h2>Наши услуги</h2>
-<div class="cards">
-  <div class="card glass">✂ Мужская стрижка</div>
-  <div class="card glass">🔥 Стрижка + борода</div>
-  <div class="card glass">🧔 Оформление бороды</div>
-  <div class="card glass">🪒 Бритьё опасной бритвой</div>
-  <div class="card glass">✒️ Оформление усов</div>
-  <div class="card glass">🧴 Уход за кожей и волосами</div>
-</div>
-</section>
+    <section class="container" id="masters">
+        <h2 class="section-title reveal">Наши мастера</h2>
+        <div class="masters-grid">
+            <div class="card master-card reveal">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Мастер+1" alt="Мастер Иван">
+                <h3>Иван Профи</h3>
+                <p>Опыт 10 лет. Специалист по классическим стрижкам и бритью.</p>
+                <a href="#contact" class="btn btn-small">Записаться к Ивану</a>
+            </div>
+            <div class="card master-card reveal">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Мастер+2" alt="Мастер Алексей">
+                <h3>Алексей Стил</h3>
+                <p>Опыт 7 лет. Эксперт по современным трендам и фейдам.</p>
+                <a href="#contact" class="btn btn-small">Записаться к Алексею</a>
+            </div>
+            <div class="card master-card reveal">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Мастер+3" alt="Мастер Сергей">
+                <h3>Сергей Ювелир</h3>
+                <p>Опыт 5 лет. Мастер по уходу за бородой и усами.</p>
+                <a href="#contact" class="btn btn-small">Записаться к Сергею</a>
+            </div>
+        </div>
+    </section>
 
-<!-- GALLERY -->
-<section id="gallery" class="section reveal">
-<h2>Галерея</h2>
-<div class="gallery">
-<img src="https://images.unsplash.com/photo-1517832606299-7ae9b720a186">
-<img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486">
-<img src="https://images.unsplash.com/photo-1599351431614-18ef1fdd27e3">
-<img src="https://images.unsplash.com/photo-1521498542256-5aeb47ba2c98">
-<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
-<img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb">
-</div>
-</section>
+    <section class="container" id="gallery">
+        <h2 class="section-title reveal">Галерея работ</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item reveal">
+                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Стрижка+1" alt="Работа 1">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Стрижка+2" alt="Работа 2">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Стрижка+3" alt="Работа 3">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Борода+1" alt="Работа 4">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Борода+2" alt="Работа 5">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Бритье+1" alt="Работа 6">
+            </div>
+        </div>
+    </section>
 
-<!-- REVIEWS -->
-<section id="reviews" class="section reveal">
-<h2>Отзывы клиентов</h2>
-<div class="cards">
-  <div class="card glass">«Отличный сервис, хожу постоянно.»</div>
-  <div class="card glass">«Настоящая мужская атмосфера.»</div>
-  <div class="card glass">«Лучший барбершоп в городе.»</div>
-</div>
-</section>
+    <section class="container" id="reviews">
+        <h2 class="section-title reveal">Отзывы наших клиентов</h2>
+        <div class="reviews-slider reveal">
+            <div class="review-card">
+                <p>"Лучший барбершоп в городе! Мастера настоящие профессионалы, всегда делают все идеально. Атмосфера очень крутая."</p>
+                <div class="rating">★★★★★</div>
+                <div class="author">Антон К.</div>
+            </div>
+            <div class="review-card">
+                <p>"Очень стильное место, все сделано со вкусом. Стрижка бороды просто огонь, теперь только сюда!"</p>
+                <div class="rating">★★★★★</div>
+                <div class="author">Олег Р.</div>
+            </div>
+            <div class="review-card">
+                <p>"Привел сына на стрижку, ему очень понравилось. Мастер был очень внимателен, всем рекомендую!"</p>
+                <div class="rating">★★★★★</div>
+                <div class="author">Дмитрий С.</div>
+            </div>
+            <div class="review-card">
+                <p>"Понравился подход и внимание к деталям. Моя стрижка держится идеально уже третью неделю. Топ!"</p>
+                <div class="rating">★★★★★</div>
+                <div class="author">Игорь П.</div>
+            </div>
+        </div>
+    </section>
 
-<!-- BOOKING -->
-<section id="booking" class="section reveal">
-<div class="glass block">
-<h2>Онлайн-запись</h2>
-<form id="bookingForm">
-<input type="text" placeholder="Ваше имя" required>
-<input type="tel" placeholder="Телефон" required>
-<select>
-<option>Мужская стрижка</option>
-<option>Стрижка + борода</option>
-<option>Оформление бороды</option>
-<option>Бритьё опасной бритвой</option>
-<option>Уходовые процедуры</option>
-</select>
-<button type="submit">Записаться</button>
-</form>
-</div>
-</section>
+    <section class="container" id="contact">
+        <h2 class="section-title reveal">Запись и контакты</h2>
+        <div class="contact-content reveal">
+            <div class="contact-info">
+                <h3>Наши контакты</h3>
+                <p>Адрес: г. Москва, ул. Примерная, 10 (2 этаж)</p>
+                <p>Телефон: <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+                <p>Email: <a href="mailto:info@brutalcuts.ru">info@brutalcuts.ru</a></p>
+                <p>График работы: Ежедневно с 10:00 до 22:00</p>
 
-<!-- POPUP -->
-<div class="popup" id="successPopup">
-<div class="popup-content glass">
-<h3>Запись принята</h3>
-<p>Мы свяжемся с вами в ближайшее время.</p>
-<button onclick="closePopup()">ОК</button>
-</div>
-</div>
+                <div class="social-links">
+                    <a href="https://t.me/antiluse" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" target="_blank" aria-label="VK"><i class="fab fa-vk"></i></a>
+                </div>
+            </div>
 
-<footer class="footer">
-© 2026 Просто барбер шоп • Telegram
-</footer>
+            <div class="booking-form">
+                <h3>Записаться онлайн</h3>
+                <form>
+                    <label for="name">Ваше имя:</label>
+                    <input type="text" id="name" name="name" required>
 
-<script src="script.js"></script>
+                    <label for="phone">Номер телефона:</label>
+                    <input type="tel" id="phone" name="phone" required>
+
+                    <label for="service">Выберите услугу:</label>
+                    <select id="service" name="service" required>
+                        <option value="">-- Выберите услугу --</option>
+                        <option value="Мужская стрижка">Мужская стрижка</option>
+                        <option value="Стрижка бороды">Стрижка бороды</option>
+                        <option value="Королевское бритье">Королевское бритье</option>
+                        <option value="Детская стрижка">Детская стрижка</option>
+                    </select>
+
+                    <label for="master">Выберите мастера (по желанию):</label>
+                    <select id="master" name="master">
+                        <option value="">-- Любой мастер --</option>
+                        <option value="Иван Профи">Иван Профи</option>
+                        <option value="Алексей Стил">Алексей Стил</option>
+                        <option value="Сергей Ювелир">Сергей Ювелир</option>
+                    </select>
+
+                    <label for="date">Предпочтительная дата:</label>
+                    <input type="date" id="date" name="date" required>
+
+                    <label for="time">Предпочтительное время:</label>
+                    <input type="time" id="time" name="time" required>
+
+                    <label for="comment">Комментарий (по желанию):</label>
+                    <textarea id="comment" name="comment"></textarea>
+
+                    <button type="submit" class="btn">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#services">Услуги</a>
+            <a href="#masters">Мастера</a>
+            <a href="#gallery">Портфолио</a>
+            <a href="#reviews">Отзывы</a>
+            <a href="#contact">Запись</a>
+        </div>
+        <p>&copy; 2026 Brutal Cuts Barbershop. School Project.</p>
+        <p>Свяжитесь с нами: <a href="https://t.me/antiluse" target="_blank" style="display: inline; color: var(--accent-color);">Telegram @antiluse</a></p>
+    </footer>
+
+    <script>
+        // Скрипт для плавного появления элементов при скролле
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150; // Элемент появляется, когда до него 150px
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                } else {
+                    // Можно убрать класс active, если элемент уходит из видимости,
+                    // но для одноразового появления лучше оставить как есть
+                    // reveals[i].classList.remove("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal); // Запустить при загрузке страницы
+
+        // Скрипт для изменения фона навигации при скролле
+        window.addEventListener("scroll", function() {
+            var nav = document.querySelector("nav");
+            if (window.scrollY > 50) { // Если прокручено более 50px
+                nav.classList.add("scrolled");
+            } else {
+                nav.classList.remove("scrolled");
+            }
+        });
+    </script>
 </body>
 </html>
-
-
 
 
 
