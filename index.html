@@ -3,764 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRUTAL CUTS | Барбершоп</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>BRUTAL CUTS | Барбершоп 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Общие настройки стиля в духе v2raytun и moscowbarber */
         :root {
             --bg-color: #0a0a0a;
-            --accent-color: #ffffff;
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
-            --text-secondary: #a0a0a0;
-            --btn-bg: #fff;
-            --btn-text: #0a0a0a;
+            --accent: #ffffff;
+            --text-gray: #a0a0a0;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: white; overflow-x: hidden; }
 
-        body {
-            background-color: var(--bg-color);
-            color: white;
-            line-height: 1.6;
-            overflow-x: hidden;
-            scroll-behavior: smooth; /* Плавный скролл */
-        }
-
-        /* Анимированный фон (градиенты как на сайте-примере) */
+        /* Фоновое свечение */
         .bg-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% -20%, #1a1a1a, transparent);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -10%, #1a1a1a, transparent);
             z-index: -1;
-            animation: glow-move 10s infinite alternate; /* Добавим легкую анимацию фону */
         }
 
-        @keyframes glow-move {
-            from {
-                background-position: 0% 0%;
-            }
-            to {
-                background-position: 100% 100%;
-            }
-        }
-
-        /* Навигация (Матовое стекло) */
+        /* Навигация */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(15px); /* Эффект размытия */
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-            transition: background 0.3s ease;
+            position: fixed; top: 0; width: 100%; padding: 15px 10%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border); z-index: 1000;
         }
+        .logo { font-weight: 700; font-size: 1.4rem; letter-spacing: 2px; }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.7; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; }
 
-        nav.scrolled {
-            background: rgba(10, 10, 10, 0.9); /* Более темный фон при скролле */
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            color: var(--accent-color);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 0.9rem;
-            transition: 0.3s ease;
-            opacity: 0.7;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--accent-color);
-            left: 0;
-            bottom: -5px;
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Главный экран */
-        header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        h1 {
-            font-size: 4.5rem; /* Немного крупнее */
-            margin-bottom: 20px;
-            background: linear-gradient(to bottom, #fff, #888); /* Мягче градиент */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-            line-height: 1.1;
-        }
-
-        p.subtitle {
-            color: var(--text-secondary);
-            font-size: 1.3rem; /* Крупнее */
-            max-width: 700px;
-            margin-bottom: 40px;
-        }
-
-        /* Кнопка */
-        .btn {
-            padding: 14px 40px; /* Немного крупнее */
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            text-decoration: none;
+        /* КНОПКА В МЕНЮ (Исправлено) */
+        .nav-links .btn-book {
+            background: white;
+            color: black !important; /* Черный текст на белом фоне */
+            padding: 8px 20px;
             border-radius: 50px;
             font-weight: 600;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn:hover {
-            transform: translateY(-5px) scale(1.05); /* Легкий подъем и увеличение */
-            background: #eee;
-        }
-
-        /* Общий контейнер для секций */
-        .container {
-            padding: 100px 10%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 60px;
-            background: linear-gradient(to bottom, #fff, #999);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Сетка услуг (Карточки с эффектом матового стекла) */
-        .services-grid, .masters-grid, .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 24px;
-            transition: 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before { /* Эффект легкого свечения при наведении */
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
-        }
-
-        .card:hover::before {
             opacity: 1;
-        }
-
-        .card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .card h3 {
-            margin-bottom: 15px;
-            font-size: 1.6rem;
-            z-index: 2;
-            position: relative;
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            z-index: 2;
-            position: relative;
-        }
-
-        /* Карточки мастеров */
-        .master-card {
-            text-align: center;
-        }
-
-        .master-card img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 3px solid var(--accent-color);
             transition: transform 0.3s ease;
         }
+        .nav-links .btn-book:hover { transform: scale(1.05); background: #e0e0e0; }
 
-        .master-card:hover img {
-            transform: scale(1.05);
+        /* Шапка */
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin-bottom: 20px; background: linear-gradient(to bottom, #fff, #666); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: var(--text-gray); font-size: 1.2rem; max-width: 600px; margin-bottom: 30px; padding: 0 20px; }
+
+        /* Секции */
+        .container { padding: 100px 10%; }
+        .section-title { font-size: 2.5rem; margin-bottom: 50px; text-align: center; }
+
+        /* Карточки */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { 
+            background: var(--glass-bg); border: 1px solid var(--glass-border); 
+            backdrop-filter: blur(10px); padding: 35px; border-radius: 24px; transition: 0.4s; 
+        }
+        .card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); }
+
+        /* МАСТЕРА (Картинки) */
+        .master-img { 
+            width: 100px; height: 100px; border-radius: 50%; object-fit: cover; 
+            margin-bottom: 20px; border: 2px solid var(--glass-border); 
         }
 
-        .master-card h3 {
-            margin-bottom: 10px;
+        /* ГАЛЕРЕЯ (Черно-белые фото) */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .gallery-item { border-radius: 15px; overflow: hidden; height: 300px; border: 1px solid var(--glass-border); }
+        .gallery-item img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            filter: grayscale(100%); transition: 0.5s ease; 
         }
+        .gallery-item:hover img { filter: grayscale(0%); transform: scale(1.05); }
 
-        .master-card p {
-            font-style: italic;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
+        /* Форма записи */
+        .booking-box { 
+            max-width: 800px; margin: 0 auto; background: var(--glass-bg); 
+            padding: 40px; border-radius: 30px; border: 1px solid var(--glass-border);
         }
-
-        /* Галерея работ */
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 16px;
+        input, select, textarea { 
+            width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.05); 
+            border: 1px solid var(--glass-border); color: white; border-radius: 10px; outline: none;
         }
-
-        .gallery-item img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            filter: grayscale(100%); /* Черно-белый */
-            transition: transform 0.4s ease, filter 0.4s ease;
-            display: block;
+        .submit-btn { 
+            width: 100%; padding: 15px; background: white; color: black; 
+            border: none; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s;
         }
+        .submit-btn:hover { background: #ddd; }
 
-        .gallery-item::after { /* Эффект наложения на фото */
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            transition: background 0.4s ease;
+        /* Телеграм Кнопка */
+        .tg-link { 
+            display: inline-flex; align-items: center; gap: 10px; 
+            color: #24A1DE; text-decoration: none; font-weight: 600; margin-top: 20px;
+            padding: 10px 20px; background: rgba(36, 161, 222, 0.1); border-radius: 10px; transition: 0.3s;
         }
+        .tg-link:hover { background: rgba(36, 161, 222, 0.2); }
 
-        .gallery-item:hover img {
-            transform: scale(1.1);
-            filter: grayscale(0%); /* Цветное при наведении */
-        }
+        /* Анимация появления */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .gallery-item:hover::after {
-            background: rgba(0, 0, 0, 0.1);
-        }
+        footer { text-align: center; padding: 60px; border-top: 1px solid var(--glass-border); color: var(--text-gray); }
 
-        /* Отзывы */
-        .reviews-slider {
-            display: flex;
-            overflow-x: auto; /* Позволяем прокручивать */
-            scroll-snap-type: x mandatory; /* Привязка к карточкам */
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 20px; /* Для скроллбара */
-            gap: 25px; /* Расстояние между отзывами */
-        }
-
-        .review-card {
-            flex: 0 0 320px; /* Фиксированная ширина карточки */
-            scroll-snap-align: start;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 20px;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .review-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .review-card .author {
-            font-weight: 700;
-            margin-top: 15px;
-            color: var(--accent-color);
-        }
-
-        .review-card .rating {
-            color: gold;
-            margin-bottom: 10px;
-        }
-
-        /* Контакты и форма записи */
-        .contact-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 50px;
-            justify-content: center;
-        }
-
-        .contact-info, .booking-form {
-            flex: 1;
-            min-width: 300px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-info h3, .booking-form h3 {
-            margin-bottom: 30px;
-            font-size: 2rem;
-            color: var(--accent-color);
-        }
-
-        .contact-info p {
-            margin-bottom: 15px;
-            color: var(--text-secondary);
-        }
-
-        .contact-info a {
-            color: var(--accent-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .contact-info a:hover {
-            color: #ccc;
-        }
-
-        .social-links {
-            margin-top: 30px;
-            display: flex;
-            gap: 20px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            font-size: 1.5rem;
-            color: white;
-            transition: background 0.3s ease, transform 0.3s ease;
-            text-decoration: none; /* Убрать подчеркивание */
-        }
-
-        .social-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .booking-form form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .booking-form label {
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .booking-form input,
-        .booking-form select,
-        .booking-form textarea {
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: white;
-            font-size: 1rem;
-            transition: border-color 0.3s ease, background 0.3s ease;
-        }
-
-        .booking-form input:focus,
-        .booking-form select:focus,
-        .booking-form textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .booking-form textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .booking-form .btn {
-            align-self: flex-start;
-            margin-top: 10px;
-        }
-
-        /* Плавное появление при скролле */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); /* Более естественная анимация */
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Футер */
-        footer {
-            text-align: center;
-            padding: 50px 10%;
-            border-top: 1px solid var(--glass-border);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: 50px;
-        }
-
-        .footer-links {
-            margin-bottom: 20px;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin: 0 15px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Адаптивность */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 3rem;
-            }
-            p.subtitle {
-                font-size: 1rem;
-            }
-            .section-title {
-                font-size: 2.2rem;
-            }
-            nav {
-                padding: 15px 5%;
-            }
-            .nav-links a {
-                margin-left: 15px;
-            }
-            .container {
-                padding: 80px 5%;
-            }
-            .contact-content {
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            .nav-links {
-                display: none; /* Мобильное меню можно добавить позже */
-            }
-            .logo {
-                width: 100%;
-                text-align: center;
-            }
-            .section-title {
-                font-size: 1.8rem;
-                margin-bottom: 40px;
-            }
-            .card {
-                padding: 30px;
-            }
-            .card h3 {
-                font-size: 1.3rem;
-            }
-            .reviews-slider {
-                flex-wrap: nowrap; /* Отключаем перенос для скролла */
-            }
-            .review-card {
-                flex: 0 0 90%; /* Ширина для мобильных */
-            }
+            .nav-links { display: none; }
+            .container { padding: 60px 5%; }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
     <div class="bg-glow"></div>
 
     <nav>
-        <div class="logo">BRUTAL.</div>
+        <div class="logo">BRUTAL CUTS</div>
         <div class="nav-links">
             <a href="#services">Услуги</a>
-            <a href="#masters">Мастера</a>
-            <a href="#gallery">Портфолио</a>
-            <a href="#reviews">Отзывы</a>
-            <a href="#contact" class="btn">Записаться</a>
+            <a href="#gallery">Работы</a>
+            <a href="#booking" class="btn-book">Записаться</a>
         </div>
     </nav>
 
     <header>
-        <h1 class="reveal">Искусство стрижки</h1>
-        <p class="subtitle reveal">Премиальный барбершоп для тех, кто ценит стиль, качество и безупречный сервис в минималистичной атмосфере.</p>
-        <a href="#contact" class="btn reveal">Записаться онлайн</a>
+        <h1 class="reveal">2026 STYLE</h1>
+        <p class="subtitle reveal">Барбершоп будущего. Мы не просто стрижем — мы создаем ваш имидж в атмосфере абсолютного комфорта.</p>
+        <a href="#booking" class="submit-btn" style="width: auto; padding: 15px 40px;">ЗАБРОНИРОВАТЬ ВИЗИТ</a>
     </header>
 
     <section class="container" id="services">
         <h2 class="section-title reveal">Наши услуги</h2>
-        <div class="services-grid">
+        <div class="grid">
             <div class="card reveal">
                 <h3>Мужская стрижка</h3>
-                <p>Классика или тренд — наши мастера создадут образ, который подчеркнет вашу индивидуальность.</p>
+                <p>Классика, фейд или удлиненные формы. Включает мытье головы и стайлинг.</p>
             </div>
             <div class="card reveal">
-                <h3>Стрижка бороды</h3>
-                <p>Идеальные контуры и уход. Используем только премиальные масла и бальзамы.</p>
+                <h3>Моделирование бороды</h3>
+                <p>Создание идеальной формы, распаривание и уход за кожей лица.</p>
             </div>
             <div class="card reveal">
                 <h3>Королевское бритье</h3>
-                <p>Традиционный ритуал с использованием горячего полотенца и опасной бритвы.</p>
-            </div>
-            <div class="card reveal">
-                <h3>Детская стрижка</h3>
-                <p>Современные и стильные стрижки для юных джентльменов.</p>
+                <p>Классический ритуал с использованием опасной бритвы и горячих полотенец.</p>
             </div>
         </div>
     </section>
 
-    <section class="container" id="masters">
-        <h2 class="section-title reveal">Наши мастера</h2>
-        <div class="masters-grid">
-            <div class="card master-card reveal">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Мастер+1" alt="Мастер Иван">
-                <h3>Иван Профи</h3>
-                <p>Опыт 10 лет. Специалист по классическим стрижкам и бритью.</p>
-                <a href="#contact" class="btn btn-small">Записаться к Ивану</a>
+    <section class="container">
+        <h2 class="section-title reveal">Топ мастера</h2>
+        <div class="grid" style="text-align: center;">
+            <div class="card reveal">
+                <img src="https://images.unsplash.com/photo-1503443207922-dff7d543fd0e?w=200&h=200&fit=crop" class="master-img" alt="Барбер">
+                <h3>Алекс</h3>
+                <p>Шеф-барбер. Стаж 12 лет.</p>
             </div>
-            <div class="card master-card reveal">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Мастер+2" alt="Мастер Алексей">
-                <h3>Алексей Стиль</h3>
-                <p>Опыт 7 лет. Эксперт по современным трендам и фейдам.</p>
-                <a href="#contact" class="btn btn-small">Записаться к Алексею</a>
+            <div class="card reveal">
+                <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=200&h=200&fit=crop" class="master-img" alt="Барбер">
+                <h3>Макс</h3>
+                <p>Специалист по сложным фейдам.</p>
             </div>
-            <div class="card master-card reveal">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Мастер+3" alt="Мастер Сергей">
-                <h3>Сергей Ювелир</h3>
-                <p>Опыт 5 лет. Мастер по уходу за бородой и усами.</p>
-                <a href="#contact" class="btn btn-small">Записаться к Сергею</a>
+            <div class="card reveal">
+                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&h=200&fit=crop" class="master-img" alt="Барбер">
+                <h3>Ник</h3>
+                <p>Эксперт по бритью и уходу.</p>
             </div>
         </div>
     </section>
 
     <section class="container" id="gallery">
-        <h2 class="section-title reveal">Галерея работ</h2>
+        <h2 class="section-title reveal">Наши работы</h2>
         <div class="gallery-grid">
-            <div class="gallery-item reveal">
-                <img src="https://media.istockphoto.com/id/1773270658/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BF%D1%80%D0%BE%D1%84%D0%B5%D1%81%D1%81%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-%D0%BF%D0%B0%D1%80%D0%B8%D0%BA%D0%BC%D0%B0%D1%85%D0%B5%D1%80-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D1%82-%D1%81-%D0%B1%D0%BE%D1%80%D0%BE%D0%B4%D0%B0%D1%82%D1%8B%D0%BC-%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%BC-%D0%B2-%D0%BF%D0%B0%D1%80%D0%B8%D0%BA%D0%BC%D0%B0%D1%85%D0%B5%D1%80%D1%81%D0%BA%D0%BE%D0%B9-%D0%BA%D1%80%D1%83%D0%BF%D0%BD%D1%8B%D0%B9-%D0%BF%D0%BB%D0%B0%D0%BD-%D1%87%D0%B5%D1%80%D0%BD%D0%BE.jpg/FFFFFF?text=Стрижка+1" alt="Работа 1">
-            </div>
-            <div class="gallery-item reveal">
-                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Стрижка+2" alt="Работа 2">
-            </div>
-            <div class="gallery-item reveal">
-                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Стрижка+3" alt="Работа 3">
-            </div>
-            <div class="gallery-item reveal">
-                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Борода+1" alt="Работа 4">
-            </div>
-            <div class="gallery-item reveal">
-                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Борода+2" alt="Работа 5">
-            </div>
-            <div class="gallery-item reveal">
-                <img src="https://via.placeholder.com/400x300/333333/FFFFFF?text=Бритье+1" alt="Работа 6">
-            </div>
+            <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1621605815841-aa88a8340dca?w=600&fit=crop"></div>
+            <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1593702295094-ada74bc4a19a?w=600&fit=crop"></div>
+            <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1517832606299-7ae9b720a186?w=600&fit=crop"></div>
+            <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1622286332618-f2802b9c54bd?w=600&fit=crop"></div>
         </div>
     </section>
 
-    <section class="container" id="reviews">
-        <h2 class="section-title reveal">Отзывы наших клиентов</h2>
-        <div class="reviews-slider reveal">
-            <div class="review-card">
-                <p>"Лучший барбершоп в городе! Мастера настоящие профессионалы, всегда делают все идеально. Атмосфера очень крутая."</p>
-                <div class="rating">★★★★★</div>
-                <div class="author">Антон К.</div>
-            </div>
-            <div class="review-card">
-                <p>"Очень стильное место, все сделано со вкусом. Стрижка бороды просто огонь, теперь только сюда!"</p>
-                <div class="rating">★★★★★</div>
-                <div class="author">Олег Р.</div>
-            </div>
-            <div class="review-card">
-                <p>"Привел сына на стрижку, ему очень понравилось. Мастер был очень внимателен, всем рекомендую!"</p>
-                <div class="rating">★★★★★</div>
-                <div class="author">Дмитрий С.</div>
-            </div>
-            <div class="review-card">
-                <p>"Понравился подход и внимание к деталям. Моя стрижка держится идеально уже третью неделю. Топ!"</p>
-                <div class="rating">★★★★★</div>
-                <div class="author">Игорь П.</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="container" id="contact">
-        <h2 class="section-title reveal">Запись и контакты</h2>
-        <div class="contact-content reveal">
-            <div class="contact-info">
-                <h3>Наши контакты</h3>
-                <p>Адрес: г. Москва, ул. Примерная, 10 (2 этаж)</p>
-                <p>Телефон: <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
-                <p>Email: <a href="mailto:info@brutalcuts.ru">info@brutalcuts.ru</a></p>
-                <p>График работы: Ежедневно с 10:00 до 22:00</p>
-
-                <div class="social-links">
-                    <a href="https://t.me/antiluse" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-                    <a href="#" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" target="_blank" aria-label="VK"><i class="fab fa-vk"></i></a>
-                </div>
-            </div>
-
-            <div class="booking-form">
-                <h3>Записаться онлайн</h3>
-                <form>
-                    <label for="name">Ваше имя:</label>
-                    <input type="text" id="name" name="name" required>
-
-                    <label for="phone">Номер телефона:</label>
-                    <input type="tel" id="phone" name="phone" required>
-
-                    <label for="service">Выберите услугу:</label>
-                    <select id="service" name="service" required>
-                        <option value="">-- Выберите услугу --</option>
-                        <option value="Мужская стрижка">Мужская стрижка</option>
-                        <option value="Стрижка бороды">Стрижка бороды</option>
-                        <option value="Королевское бритье">Королевское бритье</option>
-                        <option value="Детская стрижка">Детская стрижка</option>
-                    </select>
-
-                    <label for="master">Выберите мастера (по желанию):</label>
-                    <select id="master" name="master">
-                        <option value="">-- Любой мастер --</option>
-                        <option value="Иван Профи">Иван Профи</option>
-                        <option value="Алексей Стил">Алексей Стил</option>
-                        <option value="Сергей Ювелир">Сергей Ювелир</option>
-                    </select>
-
-                    <label for="date">Предпочтительная дата:</label>
-                    <input type="date" id="date" name="date" required>
-
-                    <label for="time">Предпочтительное время:</label>
-                    <input type="time" id="time" name="time" required>
-
-                    <label for="comment">Комментарий (по желанию):</label>
-                    <textarea id="comment" name="comment"></textarea>
-
-                    <button type="submit" class="btn">Отправить заявку</button>
-                </form>
+    <section class="container" id="booking">
+        <h2 class="section-title reveal">Онлайн запись</h2>
+        <div class="booking-box reveal">
+            <form action="#">
+                <input type="text" placeholder="Ваше имя" required>
+                <input type="tel" placeholder="+7 (___) ___-__-__" required>
+                <select required>
+                    <option value="">Выберите услугу</option>
+                    <option>Мужская стрижка</option>
+                    <option>Моделирование бороды</option>
+                    <option>Королевское бритье</option>
+                </select>
+                <textarea rows="4" placeholder="Пожелания"></textarea>
+                <button type="submit" class="submit-btn">ПОДТВЕРДИТЬ ЗАПИСЬ</button>
+            </form>
+            <div style="text-align: center;">
+                <a href="https://t.me/antiluse" class="tg-link" target="_blank">
+                    <i class="fab fa-telegram-plane"></i> Написать в Telegram
+                </a>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="footer-links">
-            <a href="#services">Услуги</a>
-            <a href="#masters">Мастера</a>
-            <a href="#gallery">Портфолио</a>
-            <a href="#reviews">Отзывы</a>
-            <a href="#contact">Запись</a>
-        </div>
-        <p>&copy; 2026 Brutal Cuts Barbershop. School Project.</p>
-        <p>Свяжитесь с нами: <a href="https://t.me/antiluse" target="_blank" style="display: inline; color: var(--accent-color);">Telegram @antiluse</a></p>
+        <p>Презентация проекта: 2026 год</p>
+        <p style="margin-top: 10px;">Шк стеб! </p>
+        <p style="font-size: 0.7rem; margin-top: 20px; opacity: 0.5;">&copy; Brutal Cuts. Все права защищены.</p>
     </footer>
 
     <script>
-        // Скрипт для плавного появления элементов при скролле
         function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150; // Элемент появляется, когда до него 150px
-                if (elementTop < windowHeight - elementVisible) {
+            let reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                let windowHeight = window.innerHeight;
+                let elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
                     reveals[i].classList.add("active");
-                } else {
-                    // Можно убрать класс active, если элемент уходит из видимости,
-                    // но для одноразового появления лучше оставить как есть
-                    // reveals[i].classList.remove("active");
                 }
             }
         }
-
         window.addEventListener("scroll", reveal);
-        window.addEventListener("load", reveal); // Запустить при загрузке страницы
-
-        // Скрипт для изменения фона навигации при скролле
-        window.addEventListener("scroll", function() {
-            var nav = document.querySelector("nav");
-            if (window.scrollY > 50) { // Если прокручено более 50px
-                nav.classList.add("scrolled");
-            } else {
-                nav.classList.remove("scrolled");
-            }
-        });
+        window.addEventListener("load", reveal);
     </script>
 </body>
 </html>
-
-
 
 
 
